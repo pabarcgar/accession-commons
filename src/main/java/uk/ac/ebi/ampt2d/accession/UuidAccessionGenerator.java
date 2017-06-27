@@ -17,15 +17,20 @@
  */
 package uk.ac.ebi.ampt2d.accession;
 
+import org.springframework.stereotype.Component;
+
 import java.nio.ByteBuffer;
 import java.util.UUID;
 
+@Component
 public class UuidAccessionGenerator<T> extends SingleAccessionGenerator<T, UUID> {
 
     private byte[] namespaceUuidBytes;
 
-    public UuidAccessionGenerator(String namespace) {
-        namespaceUuidBytes = getNamespaceUUIDbytes(namespace);
+    //private String namespace;
+
+    public UuidAccessionGenerator() {
+        namespaceUuidBytes = getNamespaceUUIDbytes("AMP");
     }
 
     private byte[] getNamespaceUUIDbytes(String namespace) {

@@ -22,10 +22,12 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import uk.ac.ebi.ampt2d.accession.AccessionGenerator;
 import uk.ac.ebi.ampt2d.accession.AccessioningProperties;
 import uk.ac.ebi.ampt2d.accession.file.File;
 import uk.ac.ebi.ampt2d.accession.file.FileAccessionRepository;
 import uk.ac.ebi.ampt2d.accession.file.FileAccessioningService;
+import uk.ac.ebi.ampt2d.accession.file.UuidFile;
 
 import java.util.List;
 import java.util.Map;
@@ -38,8 +40,9 @@ public class FileAccessioningServer {
     private FileAccessioningService accessioningService;
 
     public FileAccessioningServer(@Autowired FileAccessionRepository accessionRepository,
-                                  @Autowired AccessioningProperties properties) {
-        this.accessioningService = new FileAccessioningService(accessionRepository, properties.getNamespace());
+                                  @Autowired AccessioningProperties properties,
+                                  @Autowired AccessionGenerator<File, UuidFile> generator) {
+        this.accessioningService = new FileAccessioningService(accessionRepository, generator);
     }
 
     @RequestMapping(value = "/file", method = RequestMethod.POST, produces = "application/json", consumes = "application/json")

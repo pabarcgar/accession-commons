@@ -20,7 +20,8 @@ package uk.ac.ebi.ampt2d.accession.file;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.List;
+import java.util.UUID;
 
-public interface FileCrudRepository extends CrudRepository<File, Long> {
-    List<File> findByHashIn(List<String> checksum);
+public interface FileCrudRepository extends CrudRepository<UuidFile, Long> {
+    List<UuidFile> findByHashIn(List<String> checksum);
 }

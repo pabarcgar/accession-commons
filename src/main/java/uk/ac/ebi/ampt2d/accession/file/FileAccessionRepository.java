@@ -28,21 +28,21 @@ import java.util.function.Function;
 import java.util.stream.Collectors;
 
 @Component
-public class FileAccessionRepository implements AccessionRepository<File, UUID> {
+public class FileAccessionRepository implements AccessionRepository<UuidFile, UUID> {
 
     @Autowired
     private FileCrudRepository fileJpaRepository;
 
     @Override
-    public Map<File, UUID> get(List<File> objects) {
+    public Map<UuidFile, UUID> get(List<UuidFile> objects) {
         List<String> checksums = objects.stream().map(File::getHash).collect(Collectors.toList());
-        List<File> filesInRepository = fileJpaRepository.findByHashIn(checksums);
+        List<UuidFile> filesInRepository = fileJpaRepository.findByHashIn(checksums);
         return filesInRepository.stream().collect(Collectors.toMap(Function.identity(), File::getAccession));
     }
 
     @Override
-    public void add(Map<File, UUID> accessions) {
-        for (File file : accessions.keySet()) {
+    public void add(Map<UuidFile, UUID> accessions) {
+        for (UuidFile file : accessions.keySet()) {
             file.setAccession(accessions.get(file));
         }
         fileJpaRepository.save(accessions.keySet());

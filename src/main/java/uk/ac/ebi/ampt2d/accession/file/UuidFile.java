@@ -27,63 +27,40 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import java.util.UUID;
 
+@Entity
+@Table
+public class UuidFile extends File<UUID> {
 
-public class File<T> {
+    public UuidFile() {
 
-//    @Id
-//    @GeneratedValue(strategy = GenerationType.AUTO)
-//    @JsonIgnore
-protected Long id;
-
-//    @Column(unique = true)
-private String hash;
-
-//    @Column(unique = true)
-private T accession;
-
-    public File() {
     }
 
-    public File(String hash) {
-        this.hash = hash;
+    @Column(unique = true)
+    public UUID getAccession() {
+        return super.getAccession();
     }
 
-//    public Long getId() {
-//        return id;
-//    }
-//
-//    public void setId(Long id) {
-//        this.id = id;
-//    }
-//
+    public void setAccession(UUID accession) {
+        super.setAccession(accession);
+    }
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    @JsonIgnore
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    @Column(unique = true)
     public String getHash() {
-        return hash;
+        return super.getHash();
     }
 
     public void setHash(String hash) {
-        this.hash = hash;
-    }
-
-    public T getAccession() {
-        return accession;
-    }
-
-    public void setAccession(T accession) {
-        this.accession = accession;
-    }
-
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
-
-        File file = (File) o;
-
-        return hash.equals(file.hash);
-    }
-
-    @Override
-    public int hashCode() {
-        return hash.hashCode();
+        super.setHash(hash);
     }
 }

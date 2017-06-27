@@ -17,15 +17,14 @@
  */
 package uk.ac.ebi.ampt2d.accession.file;
 
+import uk.ac.ebi.ampt2d.accession.AccessionGenerator;
+import uk.ac.ebi.ampt2d.accession.AccessionRepository;
 import uk.ac.ebi.ampt2d.accession.AccessioningService;
-import uk.ac.ebi.ampt2d.accession.UuidAccessionGenerator;
 
-import java.util.UUID;
+public class FileAccessioningService<UUID> extends AccessioningService<UuidFile, UUID>{
 
-public class FileAccessioningService extends AccessioningService<File, UUID>{
-
-    public FileAccessioningService(FileAccessionRepository accessionRepository,
-                                   String namespace) {
-        super(accessionRepository, new UuidAccessionGenerator<>(namespace));
+    public FileAccessioningService(AccessionRepository<UuidFile, UUID> accessionRepository,
+                                   AccessionGenerator<UuidFile, UUID> generator) {
+        super(accessionRepository, generator);
     }
 }
